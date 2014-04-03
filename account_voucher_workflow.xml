@@ -6,7 +6,6 @@
             <field name="osv">account.voucher</field>
             <field name="on_create">True</field>
         </record>
-        
         <record id="act_proforma" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
             <field name="flow_start">True</field>
@@ -14,40 +13,66 @@
             <field name="action">write({'state':'draft'})</field>
             <field name="kind">function</field>
         </record>
-        <!--添加处理流程-->
-        <!--财务经理审批-->
-        <record id="act_account_manager_confirm" model="workflow.activity">
+
+        <!--设置3种流程供用户选择-->
+        <!--分支1:店长:副总:总经理-->
+        <record id="act_sub_1" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
-            <field name="name">account_confirm</field>
-            <field name="action">write({'state':'approved_1'})</field>
+            <field name="name">sub_1</field>
             <field name="kind">function</field>
+            <field name="action">write({'state': 'subed_1'})</field>
         </record>
 
-        <!--店长审批-->
-         <record id="act_shop_manager_approve" model="workflow.activity">
+        <!--分支2:经理:店长:副总:总经理-->
+        <record id="act_sub_2" model="workflow.activity">
+            <field name="wkf_id" ref="wkf"/>
+            <field name="name">sub_2</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state': 'subed_2'})</field>
+        </record>
+
+        <!-- 分支3: 经理:总经理 -->
+        <record id="act_sub_3" model="workflow.activity">
+            <field name="wkf_id" ref="wkf"/>
+            <field name="name">sub_3</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state': 'subed_3'})</field>
+        </record>
+
+        <!-- 部门经理审批-->
+        <record id="act_dept_manager_approve" model="workflow.activity">
+            <field name="wkf_id" ref="wkf"/>
+            <field name="name">dept_manager_approve</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state': 'dept_manager_approved'})</field>
+        </record>
+
+
+        <!-- 店长审批-->
+        <record id="act_shop_manager_approve" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
             <field name="name">shop_manager_approve</field>
-            <field name="action">write({'state':'approved_2'})</field>
             <field name="kind">function</field>
+            <field name="action">write({'state': 'shop_manager_approved'})</field>
         </record>
 
-         <!--营运副总审批-->
-         <record id="act_vice_general_manager_approve" model="workflow.activity">
+        <!-- 副总审批 -->
+        <record id="act_vice_general_manager_approve" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
             <field name="name">vice_general_manager_approve</field>
-            <field name="action">write({'state':'approved_3'})</field>
             <field name="kind">function</field>
+            <field name="action">write({'state': 'vice_general_manager_approved'})</field>
         </record>
 
-        <!--总经理审批-->
-         <record id="act_ceo_approve" model="workflow.activity">
+        <!-- 总经理审批 -->
+        <record id="act_ceo_approve" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
             <field name="name">ceo_approve</field>
-            <field name="action">write({'state':'approved_4'})</field>
             <field name="kind">function</field>
+            <field name="action">write({'state': 'ceo_approved'})</field>
         </record>
 
-     
+        <!--最终确认处理-->
         <record id="act_done" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
             <field name="name">done</field>
@@ -55,7 +80,8 @@
             <field name="kind">function</field>
             <field name="flow_stop">True</field>
         </record>
-        
+
+        <!-- cancel activity -->
         <record id="act_cancel" model="workflow.activity">
             <field name="wkf_id" ref="wkf"/>
             <field name="name">cancel</field>
@@ -63,73 +89,158 @@
             <field name="action">cancel_voucher()</field>
             <field name="kind">function</field>
         </record>
-        
-        <!--transition-->
-        <!--财务经理审核-->
-        <record id="t20" model="workflow.transition">
+
+        <!-- 定义迁移 -->
+        <!-- draft-sub_1-->
+        <record id="t11" model="workflow.transition">
             <field name="act_from" ref="act_proforma"/>
-            <field name="act_to" ref="act_account_manager_confirm"/>
-            <field name="signal">account_manager_confirm</field>
+            <field name="act_to" ref="act_sub_1"/>
+            <field name="signal">sub_1</field>
+            <field name="group_id" ref="base.group_hr_user"/>
         </record>
-        <!--店长审核-->
-        <record id="t21" model="workflow.transition">
-            <field name="act_from" ref="act_account_manager_confirm"/>
+
+        <!-- draft-sub_2-->
+        <record id="t12" model="workflow.transition">
+            <field name="act_from" ref="act_proforma"/>
+            <field name="act_to" ref="act_sub_2"/>
+            <field name="signal">sub_2</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <!-- draft-sub_3-->
+        <record id="t13" model="workflow.transition">
+            <field name="act_from" ref="act_proforma"/>
+            <field name="act_to" ref="act_sub_3"/>
+            <field name="signal">sub_3</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+
+
+        <!-- sub_1 处理 -->
+        <!-- sub_1 -  shop_manager_approve -->
+        <record id="t111" model="workflow.transition">
+            <field name="act_from" ref="act_sub_1"/>
             <field name="act_to" ref="act_shop_manager_approve"/>
             <field name="signal">shop_manager_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
         </record>
-        <!--营运副总审核-->
-         <record id="t22" model="workflow.transition">
+
+        <!-- shop_manager_approve -  vice_general_manager_approve -->
+        <record id="t112" model="workflow.transition">
             <field name="act_from" ref="act_shop_manager_approve"/>
             <field name="act_to" ref="act_vice_general_manager_approve"/>
             <field name="signal">vice_general_manager_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
         </record>
-         <!--总经理审核-->
-         <record id="t23" model="workflow.transition">
+
+        <!-- vice_general_manager_approve - ceo_approve -->
+        <record id="t113" model="workflow.transition">
             <field name="act_from" ref="act_vice_general_manager_approve"/>
             <field name="act_to" ref="act_ceo_approve"/>
             <field name="signal">ceo_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
         </record>
-  
-        <record id="t2" model="workflow.transition">
+        <!-- sub_1 处理完毕 -->
+
+        <!-- sub_2 处理 -->
+        <!-- sub_2 -  accepted - dept_manager_approve -->
+        <record id="t121" model="workflow.transition">
+            <field name="act_from" ref="act_sub_2"/>
+            <field name="act_to" ref="act_dept_manager_approve"/>
+            <field name="signal">dept_manager_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <!-- sub_2 -  dept_manager_approve - ceo_approve -->
+        <record id="t122" model="workflow.transition">
+            <field name="act_from" ref="act_dept_manager_approve"/>
+            <field name="act_to" ref="act_ceo_approve"/>
+            <field name="signal">ceo_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+        <!-- sub_2 完毕-->
+
+        <!-- sub_3 处理 -->
+        <!-- sub_3 -  sub_3 - dept_manager_approve -->
+        <record id="t131" model="workflow.transition">
+            <field name="act_from" ref="act_sub_3"/>
+            <field name="act_to" ref="act_dept_manager_approve"/>
+            <field name="signal">dept_manager_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <!-- sub_3 -  dept_manager -> shop_manager_approve -->
+        <record id="t132" model="workflow.transition">
+            <field name="act_from" ref="act_dept_manager_approve"/>
+            <field name="act_to" ref="act_shop_manager_approve"/>
+            <field name="signal">shop_manager_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <!-- shop_manager_approve -  vice_general_manager_approve -->
+        <record id="t133" model="workflow.transition">
+            <field name="act_from" ref="act_shop_manager_approve"/>
+            <field name="act_to" ref="act_vice_general_manager_approve"/>
+            <field name="signal">vice_general_manager_approve</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+        <!-- sub_3 完毕-->
+
+        <!--审批完成-->
+        <record id="t3" model="workflow.transition">
             <field name="act_from" ref="act_ceo_approve"/>
             <field name="act_to" ref="act_done"/>
-            <field name="signal">proforma_voucher</field>
-            <field name="condition">True</field>
+            <field name="signal">done</field>
+            <field name="group_id" ref="base.group_hr_user"/>
         </record>
-        
-        <record id="t6" model="workflow.transition">
+
+
+        <!-- cancel 处理 -->
+
+        <record id="tcancel_1" model="workflow.transition">
+            <field name="act_from" ref="act_shop_manager_approve"/>
+            <field name="act_to" ref="act_cancel"/>
+            <field name="signal">cancel_voucher</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <record id="tcancel_2" model="workflow.transition">
+            <field name="act_from" ref="act_dept_manager_approve"/>
+            <field name="act_to" ref="act_cancel"/>
+            <field name="signal">cancel_voucher</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <record id="tcancel_3" model="workflow.transition">
+            <field name="act_from" ref="act_ceo_approve"/>
+            <field name="act_to" ref="act_cancel"/>
+            <field name="signal">cancel_voucher</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+
+        <record id="tcancel_4" model="workflow.transition">
+            <field name="act_from" ref="act_vice_general_manager_approve"/>
+            <field name="act_to" ref="act_cancel"/>
+            <field name="signal">cancel_voucher</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <record id="tcancel_5" model="workflow.transition">
             <field name="act_from" ref="act_proforma"/>
             <field name="act_to" ref="act_cancel"/>
             <field name="signal">cancel_voucher</field>
         </record>
-        
-        <record id="t7" model="workflow.transition">
+        <record id="tcancel_6" model="workflow.transition">
             <field name="act_from" ref="act_done"/>
             <field name="act_to" ref="act_cancel"/>
             <field name="signal">cancel_voucher</field>
         </record>
-        
         <record id="t8" model="workflow.transition">
             <field name="act_from" ref="act_cancel"/>
             <field name="act_to" ref="act_proforma"/>
             <field name="signal">cancel_to_draft</field>
         </record>
-        <!--各个环节的cancel处理-->
-        <record id="t30" model="workflow.transition">
-            <field name="act_from" ref="act_account_manager_confirm"/>
-            <field name="act_to" ref="act_cancel"/>
-            <field name="signal">cancel_voucher</field>
-        </record>
-         <record id="t31" model="workflow.transition">
-            <field name="act_from" ref="act_shop_manager_approve"/>
-            <field name="act_to" ref="act_cancel"/>
-            <field name="signal">cancel_voucher</field>
-        </record>
-        <record id="t32" model="workflow.transition">
-            <field name="act_from" ref="act_vice_general_manager_approve"/>
-            <field name="act_to" ref="act_cancel"/>
-            <field name="signal">cancel_voucher</field>
-        </record>
- 
     </data>
 </openerp>

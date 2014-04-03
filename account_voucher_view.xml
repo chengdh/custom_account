@@ -7,20 +7,21 @@
       <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
       <field name="arch" type="xml">
         <header position="replace">
+
           <header>
-            <!--财务经理审核-->
-            <button name="account_manager_confirm" string="account_manager_confirm" states="draft"  groups="base.group_account_manager" class="oe_highlight"/>
-            <!--店长审核-->
-            <button name="shop_manager_approve" string="shop_manager_approve" states="approved_1" groups="base.group_shop_manager" class="oe_highlight"/>
-            <!--营运副总-->
-            <button name="vice_general_manager_approve" string="vice_general_manager_approve" states="approved_2" groups="base.group_vice_general_manager" cclass="oe_highlight"/>
-            <!--总经理-->
-            <button name="ceo_approve" string="ceo_approve" states="approved_3" groups="base.group_ceo" class="oe_highlight"/>
-            <button name="proforma_voucher" string="Post" states="approved_4" class="oe_highlight" groups="base.group_account_manager"/>
+            <button name="sub_1" states="draft" string="流程1" type="workflow" class="oe_highlight"/>
+            <button name="sub_2" states="draft" string="流程2" type="workflow" class="oe_highlight"/>
+            <button name="sub_3" states="draft" string="流程3" type="workflow" class="oe_highlight"/>
+            <button name="shop_manager_approve" states="subed_1" string="店长审批" type="workflow" groups="base.group_shop_manager" class="oe_highlight"/>
+            <button name="dept_manager_approve" states="subed_2,subed_3" string="经理审批" type="workflow" groups="base.group_dept_manager" class="oe_highlight"/>
+            <button name="vice_general_manager_approve" states="shop_manager_approved" string="副总审批" type="workflow" groups="base.group_vice_general_manager" class="oe_highlight"/>
+            <button name="ceo_approve" states="vice_general_manager_approved,dept_manager_approved" string="总经理审批" type="workflow" groups="base.group_ceo" class="oe_highlight"/>
+
+            <button name="done" string="过账" states="ceo_approved" type="workflow" class="oe_highlight" groups="base.group_account_manager"/>
             <button name="cancel_voucher" string="Cancel Voucher" type="object" states="posted" confirm="Are you sure you want to unreconcile this record?"/>
-            <button name="cancel_voucher" string="Cancel Voucher" states="draft,proforma,approved_1,approved_2,approved_3,approved_4"/>
+            <button name="cancel_voucher" string="Cancel Voucher" states="draft,proforma,shop_manager_approved,dept_manager_approved,vice_general_manager_approved,ceo_approved"/>
             <button name="action_cancel_draft" type="object" states="cancel" string="Set to Draft"/>
-            <field name="state" widget="statusbar" statusbar_visible="draft,approved_1,approved_2,approved_3,approved_4,posted" statusbar_colors='{"proforma":"blue"}'/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,shop_manager_approved,dept_manager_approved,vice_general_manager_approved,ceo_approved,proforma,posted" statusbar_colors='{"proforma":"blue"}'/>
           </header>
         </header>
       </field>
