@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
-      <!--重新定义入库单和出库单-->
-      <report id="stock.report_picking_list_in" model="stock.picking.in" 
-        name="stock.picking.list.new" string="Receipt Slip" 
-        file="custom_stock/report/picking.mako" report_type='mako2html' header='0'/>
-      <report id="stock.report_picking_list_out" model="stock.picking.out" 
-        name="stock.picking.list.new" string="Delivery Slip"
-        file="custom_stock/report/picking.mako" report_type='mako2html' header='0'/>
-    </data>
+  <data>
+    <report id="account_voucher.report_account_voucher_print"
+      string="打印付款单"
+      model="account.voucher"
+      name="voucher.print.new"
+      file="custom_account/report/account_voucher.mako"
+      report_type='mako2html'
+      header = "0"
+      usage="default" />
+  </data>
 </openerp>

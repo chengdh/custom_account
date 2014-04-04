@@ -10,7 +10,7 @@
     'license': 'AGPL-3',
     'depends': ['account_voucher'],
     'init_xml': [],
-    'update_xml': ['account_voucher_view.xml','account_voucher_workflow.xml'],
+    'update_xml': ['account_voucher_view.xml','account_voucher_workflow.xml','report.xml'],
     'demo_xml': [],
     'active': False,
     'installable': True,
