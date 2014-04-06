@@ -39,6 +39,16 @@ class account_voucher(osv.osv):
   _description = 'Accounting Voucher'
   _inherit = 'account.voucher'
 
+  _track = {
+    'state': {
+        'custom_account.mt_voucher_cancelled': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'cancelled',
+        'custom_account.mt_voucher_dept_manager_approved': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'dept_manager_approved',
+        'custom_account.mt_voucher_shop_manager_approved': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'shop_manager_approved',
+        'custom_account.mt_voucher_vice_general_manager_approved': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'vice_general_manager_approved',
+        'custom_account.mt_voucher_ceo_approved': lambda self, cr, uid, obj, ctx=None: obj['state'] == 'ceo_approved',
+      },
+    }
+
 
   def _get_where_args_with_workflow(self,cr,uid):
     '''
@@ -99,17 +109,17 @@ class account_voucher(osv.osv):
   _columns = {
       'state':fields.selection(
         [
-          ('draft', 'New'),                                                           #草稿
-          ('cancel', 'canceled'),                                                   #已驳回
+          ('draft', 'draft'),                                                           #草稿
+          ('cancel', 'cancelled'),                                                   #已驳回
           ('subed_1', 'subflow 1'),                                                  #部门经理已审批
           ('subed_2', 'subflow 2'),                                                  #部门经理已审批
           ('subed_3', 'subflow 3'),                                                  #部门经理已审批
-          ('shop_manager_approved', 'Shop Manager Approved'),
-          ('dept_manager_approved', 'Department Manager Approved'),
-          ('vice_general_manager_approved', 'Vice Manager Approved'),
-          ('ceo_approved', 'CEO Approved'),
-          ('proforma','Pro-forma'),     #过账
-          ('posted','Posted')
+          ('shop_manager_approved', 'shop manager approved'),
+          ('dept_manager_approved', 'dept manager approved'),
+          ('vice_general_manager_approved', 'vice general manager approved'),
+          ('ceo_approved', 'ceo approved'),
+          ('proforma','paid'),     #过账
+          ('posted','posted')
           ], 'Status', readonly=True, size=32, track_visibility='onchange',
         help=' * The \'Draft\' status is used when a user is encoding a new and unconfirmed Voucher. \
             \n* The \'Pro-forma\' when voucher is in Pro-forma status,voucher does not have an voucher number. \

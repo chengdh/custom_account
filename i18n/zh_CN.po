@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-05 06:21+0000\n"
-"PO-Revision-Date: 2014-03-05 06:21+0000\n"
+"POT-Creation-Date: 2014-04-06 02:37+0000\n"
+"PO-Revision-Date: 2014-04-06 02:37+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,28 +17,19 @@ msgstr ""
 
 #. module: custom_account
 #: view:account.voucher:0
-msgid "account_manager_confirm"
-msgstr "财务确认"
+msgid "副总审批"
+msgstr "副总审批"
 
 #. module: custom_account
-#: view:account.voucher:0
-msgid "Are you sure you want to unreconcile this record?"
-msgstr ""
+#: model:mail.message.subtype,description:custom_account.mt_voucher_cancelled
+#: model:mail.message.subtype,name:custom_account.mt_voucher_cancelled
+msgid "Voucher Cancelled"
+msgstr "付款单已取消"
 
 #. module: custom_account
-#: view:account.voucher:0
-msgid "shop_manager_approve"
-msgstr "店长审核"
-
-#. module: custom_account
-#: model:ir.model,name:custom_account.model_account_voucher
-msgid "Accounting Voucher"
-msgstr ""
-
-#. module: custom_account
-#: view:account.voucher:0
-msgid "Set to Draft"
-msgstr "设为草稿"
+#: model:mail.message.subtype,name:custom_account.mt_voucher_vice_general_manager_approved
+msgid "Vice General Manager Approve"
+msgstr "副总审批"
 
 #. module: custom_account
 #: view:account.voucher:0
@@ -47,35 +38,153 @@ msgstr "取消付款"
 
 #. module: custom_account
 #: view:account.voucher:0
-msgid "Post"
-msgstr "过账"
+msgid "流程3"
+msgstr "流程3"
 
 #. module: custom_account
 #: view:account.voucher:0
-msgid "vice_general_manager_approve"
-msgstr "副总审批"
+msgid "流程2"
+msgstr "流程2"
 
 #. module: custom_account
 #: view:account.voucher:0
-msgid "ceo_approve"
+msgid "流程1"
+msgstr "流程1"
+
+#. module: custom_account
+#: model:mail.message.subtype,description:custom_account.mt_voucher_shop_manager_approved
+msgid "Shop Manager Approved"
+msgstr "店长已审"
+
+#. module: custom_account
+#: model:mail.message.subtype,description:custom_account.mt_voucher_vice_general_manager_approved
+msgid "Vice General Manager Approved"
+msgstr "副总已审"
+
+#. module: custom_account
+#: view:account.voucher:0
+msgid "总经理审批"
 msgstr "总经理审批"
 
 #. module: custom_account
-#: selection:account.voucher,state:0
-msgid "approved_1"
-msgstr "财务已审"
+#: model:mail.message.subtype,name:custom_account.mt_voucher_shop_manager_approved
+msgid "Shop Manager Approve"
+msgstr "店长审批"
+
+#. module: custom_account
+#: view:account.voucher:0
+msgid "Are you sure you want to unreconcile this record?"
+msgstr "你确定要核销该记录?"
+
+#. module: custom_account
+#: view:account.voucher:0
+msgid "Set to Draft"
+msgstr "设为草稿"
+
+#. module: custom_account
+#: model:mail.message.subtype,name:custom_account.mt_voucher_ceo_approved
+msgid "CEO Approve"
+msgstr "总经理审批"
+
+#. module: custom_account
+#: model:mail.message.subtype,name:custom_account.mt_voucher_dept_manager_approved
+msgid "Dept Manager Approve"
+msgstr "部门经理审批"
+
+#. module: custom_account
+#: model:mail.message.subtype,description:custom_account.mt_voucher_dept_manager_approved
+msgid "Dept Manager Approved"
+msgstr "部门经理已审"
+
+#. module: custom_account
+#: view:account.voucher:0
+msgid "店长审批"
+msgstr "店长审批"
+
+#. module: custom_account
+#: model:mail.message.subtype,description:custom_account.mt_voucher_ceo_approved
+msgid "CEO Approved"
+msgstr "总经理已审"
+
+#. module: custom_account
+#: view:account.voucher:0
+msgid "过账"
+msgstr "过账"
+
+#. module: custom_account
+#: model:ir.model,name:custom_account.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "手工凭证"
+
+#. module: custom_account
+#: field:account.voucher,next_workflow_signal:0
+msgid "根据当前用户计算下一个workflow signal"
+msgstr "根据当前用户计算下一个workflow signal"
+
+#. module: custom_account
+#: view:account.voucher:0
+msgid "经理审批"
+msgstr "经理审批"
 
 #. module: custom_account
 #: selection:account.voucher,state:0
-msgid "approved_2"
+msgid "draft"
+msgstr "草稿"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "cancelled"
+msgstr "已取消"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "subflow 1"
+msgstr "流程1"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "subflow 2"
+msgstr "流程2"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "subflow 3"
+msgstr "流程3"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "shop manager approved"
 msgstr "店长已审"
 
 #. module: custom_account
 #: selection:account.voucher,state:0
-msgid "approved_3"
+msgid "dept manager approved"
+msgstr "经理已审"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "vice general manager approved"
 msgstr "副总已审"
 
 #. module: custom_account
 #: selection:account.voucher,state:0
-msgid "approved_4"
+msgid "ceo approved"
 msgstr "总经理已审"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "paid"
+msgstr "已付款"
+
+#. module: custom_account
+#: selection:account.voucher,state:0
+msgid "posted"
+msgstr "已过账"
+
+
+
+
+
+
+
+

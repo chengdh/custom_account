@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="mt_voucher_cancelled" model="mail.message.subtype">
+      <field name="name">Voucher Cancelled</field>
+      <field name="res_model">account.voucher</field>
+      <field name="description">Voucher Cancelled</field>
+    </record>
+
+    <record id="mt_voucher_dept_manager_approved" model="mail.message.subtype">
+      <field name="name">Dept Manager Approve</field>
+      <field name="res_model">account.voucher</field>
+      <field name="description">Dept Manager Approved</field>
+    </record>
+    <record id="mt_voucher_shop_manager_approved" model="mail.message.subtype">
+      <field name="name">Shop Manager Approve</field>
+      <field name="res_model">account.voucher</field>
+      <field name="description">Shop Manager Approved</field>
+    </record>
+    <record id="mt_voucher_vice_general_manager_approved" model="mail.message.subtype">
+      <field name="name">Vice General Manager Approve</field>
+      <field name="res_model">account.voucher</field>
+      <field name="description">Vice General Manager Approved</field>
+    </record>
+
+    <record id="mt_voucher_ceo_approved" model="mail.message.subtype">
+      <field name="name">CEO Approve</field>
+      <field name="res_model">account.voucher</field>
+      <field name="description">CEO Approved</field>
+    </record>
+  </data>
+</openerp>
