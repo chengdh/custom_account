@@ -17,7 +17,7 @@
             <button name="vice_general_manager_approve" states="shop_manager_approved" string="副总审批" type="workflow" groups="base.group_vice_general_manager" class="oe_highlight"/>
             <button name="ceo_approve" states="vice_general_manager_approved,dept_manager_approved" string="总经理审批" type="workflow" groups="base.group_ceo" class="oe_highlight"/>
 
-            <button name="done" string="过账" states="ceo_approved" type="workflow" class="oe_highlight" groups="base.group_account_manager"/>
+            <button name="done" string="过账" states="ceo_approved,draft" type="workflow" class="oe_highlight" groups="base.group_account_manager"/>
             <button name="cancel_voucher" string="Cancel Voucher" type="object" states="posted" confirm="Are you sure you want to unreconcile this record?"/>
             <button name="cancel_voucher" string="Cancel Voucher" states="draft,proforma,shop_manager_approved,dept_manager_approved,vice_general_manager_approved,ceo_approved"/>
             <button name="action_cancel_draft" type="object" states="cancel" string="Set to Draft"/>
