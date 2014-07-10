@@ -143,3 +143,14 @@ class account_voucher(osv.osv):
     vouchers = self.read(cr,uid,ids,context=context)
     _logger.debug("return vouchers =  " + repr(vouchers));
     return vouchers
+
+class account_voucher_line(osv.osv):
+  '''
+  给account_voucher添加字段,用于显示实际发生的数据
+  '''
+  _inherit = "account.voucher.line"
+
+  _columns = {
+      "product_name" : fields.related("move_line_id","name",type="text",string="产品"),
+      "quantity" : fields.related("move_line_id","quantity",type="integer",string="数量"),
+      }

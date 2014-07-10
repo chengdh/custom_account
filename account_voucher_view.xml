@@ -24,6 +24,17 @@
             <field name="state" widget="statusbar" statusbar_visible="draft,shop_manager_approved,dept_manager_approved,vice_general_manager_approved,ceo_approved,proforma,posted" statusbar_colors='{"proforma":"blue"}'/>
           </header>
         </header>
+        <!--
+        <xpath expr="/form/sheet/notebook/page/field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="before">
+          <field name="product_name" />
+          <field name="quantity" />
+        </xpath>
+        <xpath expr="/form/sheet/notebook/page/field[@name='line_cr_ids']/tree/field[@name='move_line_id']" position="before">
+          <field name="product_name" />
+          <field name="quantity" />
+        </xpath>
+        -->
+
       </field>
     </record>
   </data>
