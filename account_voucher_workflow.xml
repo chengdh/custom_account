@@ -96,7 +96,6 @@
             <field name="act_from" ref="act_proforma"/>
             <field name="act_to" ref="act_sub_1"/>
             <field name="signal">sub_1</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- draft-sub_2-->
@@ -104,7 +103,6 @@
             <field name="act_from" ref="act_proforma"/>
             <field name="act_to" ref="act_sub_2"/>
             <field name="signal">sub_2</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- draft-sub_3-->
@@ -112,7 +110,6 @@
             <field name="act_from" ref="act_proforma"/>
             <field name="act_to" ref="act_sub_3"/>
             <field name="signal">sub_3</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
 
@@ -123,7 +120,6 @@
             <field name="act_from" ref="act_sub_1"/>
             <field name="act_to" ref="act_shop_manager_approve"/>
             <field name="signal">shop_manager_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- shop_manager_approve -  vice_general_manager_approve -->
@@ -131,7 +127,6 @@
             <field name="act_from" ref="act_shop_manager_approve"/>
             <field name="act_to" ref="act_vice_general_manager_approve"/>
             <field name="signal">vice_general_manager_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- vice_general_manager_approve - ceo_approve -->
@@ -139,7 +134,6 @@
             <field name="act_from" ref="act_vice_general_manager_approve"/>
             <field name="act_to" ref="act_ceo_approve"/>
             <field name="signal">ceo_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
         <!-- sub_1 处理完毕 -->
 
@@ -149,7 +143,6 @@
             <field name="act_from" ref="act_sub_2"/>
             <field name="act_to" ref="act_dept_manager_approve"/>
             <field name="signal">dept_manager_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- sub_2 -  dept_manager_approve - ceo_approve -->
@@ -157,7 +150,6 @@
             <field name="act_from" ref="act_dept_manager_approve"/>
             <field name="act_to" ref="act_ceo_approve"/>
             <field name="signal">ceo_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
         <!-- sub_2 完毕-->
 
@@ -167,7 +159,6 @@
             <field name="act_from" ref="act_sub_3"/>
             <field name="act_to" ref="act_dept_manager_approve"/>
             <field name="signal">dept_manager_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- sub_3 -  dept_manager -> shop_manager_approve -->
@@ -175,7 +166,6 @@
             <field name="act_from" ref="act_dept_manager_approve"/>
             <field name="act_to" ref="act_shop_manager_approve"/>
             <field name="signal">shop_manager_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <!-- shop_manager_approve -  vice_general_manager_approve -->
@@ -183,7 +173,6 @@
             <field name="act_from" ref="act_shop_manager_approve"/>
             <field name="act_to" ref="act_vice_general_manager_approve"/>
             <field name="signal">vice_general_manager_approve</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
         <!-- sub_3 完毕-->
 
@@ -192,31 +181,32 @@
             <field name="act_from" ref="act_ceo_approve"/>
             <field name="act_to" ref="act_done"/>
             <field name="signal">done</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
+        <!--对于需要支付的费用expense,可直接过账-->
+        <record id="t_proforma_done" model="workflow.transition">
+            <field name="act_from" ref="act_proforma"/>
+            <field name="act_to" ref="act_done"/>
+            <field name="signal">done</field>
+        </record>
 
         <!-- cancel 处理 -->
-
         <record id="tcancel_1" model="workflow.transition">
             <field name="act_from" ref="act_shop_manager_approve"/>
             <field name="act_to" ref="act_cancel"/>
             <field name="signal">cancel_voucher</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <record id="tcancel_2" model="workflow.transition">
             <field name="act_from" ref="act_dept_manager_approve"/>
             <field name="act_to" ref="act_cancel"/>
             <field name="signal">cancel_voucher</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <record id="tcancel_3" model="workflow.transition">
             <field name="act_from" ref="act_ceo_approve"/>
             <field name="act_to" ref="act_cancel"/>
             <field name="signal">cancel_voucher</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
 
@@ -224,7 +214,6 @@
             <field name="act_from" ref="act_vice_general_manager_approve"/>
             <field name="act_to" ref="act_cancel"/>
             <field name="signal">cancel_voucher</field>
-            <field name="group_id" ref="base.group_hr_user"/>
         </record>
 
         <record id="tcancel_5" model="workflow.transition">
