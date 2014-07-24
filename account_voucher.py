@@ -85,6 +85,7 @@ class account_voucher(osv.osv):
       state = ["shop_manager_approved"]
       signal = "vice_general_manager_approve"
 
+    '''
     if group_shop_manager in matched_groups:
       state = ["subed_1"]
       signal = "shop_manager_approve"
@@ -92,6 +93,9 @@ class account_voucher(osv.osv):
     if group_dept_manager in matched_groups:
       state = ["subed_2","subed_3"]
       signal = "dept_manager_approve"
+
+    '''
+
 
     return {"state" : state,"signal" : signal}
 
