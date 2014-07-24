@@ -76,6 +76,9 @@ class account_voucher(osv.osv):
     list_b = [group_dept_manager,group_shop_manager,group_account_manager,group_account_manager,group_general_manager,group_ceo]
     matched_groups = list(set(groups).intersection(set(list_b)))
     if not matched_groups: return None
+    state = "__not_use__"
+    signal = "__not_use__"
+
 
     if group_ceo in matched_groups:
       state = ["dept_manager_approved","vice_general_manager_approved"]
@@ -111,6 +114,7 @@ class account_voucher(osv.osv):
 
 
   _columns = {
+      'department_id':fields.many2one('hr.department','部门', readonly=True, states={'draft':[('readonly',False)]}),
       'state':fields.selection(
         [
           ('draft', 'draft'),                                                           #草稿

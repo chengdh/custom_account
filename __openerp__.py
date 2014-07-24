@@ -10,6 +10,7 @@
     'license': 'AGPL-3',
     'depends': ['account_voucher'],
     'data': [
+      'security/ir_rules.xml',
       "account_voucher_view.xml",
       "account_voucher_workflow.xml",
       "custom_account_data.xml",
